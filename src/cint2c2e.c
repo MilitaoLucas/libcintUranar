@@ -291,7 +291,7 @@ CACHE_SIZE_T CINT2c2e_drv(double *out, FINT *dims, CINTEnvVars *envs, CINTOpt *o
         return !empty;
 }
 // (spinor|spinor)
-CACHE_SIZE_T CINT2c2e_spinor_drv(double complex *out, FINT *dims, CINTEnvVars *envs, CINTOpt *opt,
+CACHE_SIZE_T CINT2c2e_spinor_drv(cint_complex *out, FINT *dims, CINTEnvVars *envs, CINTOpt *opt,
                         double *cache, void (*f_e1_c2s)())
 {
         if (envs->ncomp_e1 > 1 || envs->ncomp_e2 > 1) {
@@ -374,7 +374,7 @@ CACHE_SIZE_T int2c2e_cart(double *out, FINT *dims, FINT *shls, FINT *atm, FINT n
         return CINT2c2e_drv(out, dims, &envs, opt, cache, &c2s_cart_1e);
 }
  
-CACHE_SIZE_T int2c2e_spinor(double complex *out, FINT *dims, FINT *shls, FINT *atm, FINT natm,
+CACHE_SIZE_T int2c2e_spinor(cint_complex *out, FINT *dims, FINT *shls, FINT *atm, FINT natm,
                    FINT *bas, FINT nbas, double *env, CINTOpt *opt, double *cache)
 {
         FINT ng[] = {0, 0, 0, 0, 0, 1, 1, 1};

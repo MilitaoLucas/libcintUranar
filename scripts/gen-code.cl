@@ -518,7 +518,7 @@ return 0; }~%")))
       (format fout "return CINT1e_drv(out, dims, &envs, cache, &c2s_sph_1e, ~d);
 } // ~a_sph~%" int1e-type intname)
 ;;; _spinor
-      (format fout "CACHE_SIZE_T ~a_spinor(double complex *out, FINT *dims, FINT *shls,
+      (format fout "CACHE_SIZE_T ~a_spinor(cint_complex *out, FINT *dims, FINT *shls,
 FINT *atm, FINT natm, FINT *bas, FINT nbas, double *env, CINTOpt *opt, double *cache) {~%" intname)
       (format fout envs-common)
       (when (member 'g raw-infix)
@@ -792,7 +792,7 @@ c2s_dset0(out+nout*i, dims, counts); }
 return 0; }~%")))
       (format fout "return CINT2e_drv(out, dims, &envs, opt, cache, &c2s_sph_2e1);~%} // ~a_sph~%" intname)
 ;;; _spinor
-      (format fout "CACHE_SIZE_T ~a_spinor(double complex *out, FINT *dims, FINT *shls,
+      (format fout "CACHE_SIZE_T ~a_spinor(cint_complex *out, FINT *dims, FINT *shls,
 FINT *atm, FINT natm, FINT *bas, FINT nbas, double *env, CINTOpt *opt, double *cache) {~%" intname)
       (format fout envs-common)
       (when (member 'g raw-infix)
@@ -960,7 +960,7 @@ return 0; }~%")))
       (format fout "return CINT3c2e_drv(out, dims, &envs, opt, cache, &c2s_sph_3c2e1, 0);
 } // ~a_sph~%" intname)
 ;;; _spinor
-      (format fout "CACHE_SIZE_T ~a_spinor(double complex *out, FINT *dims, FINT *shls,
+      (format fout "CACHE_SIZE_T ~a_spinor(cint_complex *out, FINT *dims, FINT *shls,
 FINT *atm, FINT natm, FINT *bas, FINT nbas, double *env, CINTOpt *opt, double *cache) {~%" intname)
       (format fout envs-common)
       (when (member 'g raw-infix)
@@ -1080,7 +1080,7 @@ FINT *atm, FINT natm, FINT *bas, FINT nbas, double *env, CINTOpt *opt, double *c
       (format fout envs-common)
       (format fout "return CINT2c2e_drv(out, dims, &envs, opt, cache, &c2s_sph_1e);~%} // ~a_sph~%" intname)
 ;;; _spinor
-      (format fout "CACHE_SIZE_T ~a_spinor(double complex *out, FINT *dims, FINT *shls,
+      (format fout "CACHE_SIZE_T ~a_spinor(cint_complex *out, FINT *dims, FINT *shls,
 FINT *atm, FINT natm, FINT *bas, FINT nbas, double *env, CINTOpt *opt, double *cache) {~%" intname)
 ;      (format fout envs-common)
 ;      ; c2s_ function is incorrect if e1/e2 are spin-included operators
@@ -1236,7 +1236,7 @@ return 0; }~%")))
       (format fout "return CINT3c1e_drv(out, dims, &envs, opt, cache, &c2s_sph_3c1e, ~d, 0);
 } // ~a_sph~%" int1e-type intname)
 ;;; _spinor
-      (format fout "CACHE_SIZE_T ~a_spinor(double complex *out, FINT *dims, FINT *shls,
+      (format fout "CACHE_SIZE_T ~a_spinor(cint_complex *out, FINT *dims, FINT *shls,
 FINT *atm, FINT natm, FINT *bas, FINT nbas, double *env, CINTOpt *opt, double *cache) {~%" intname)
       (format fout envs-common)
       (when (member 'g raw-infix)
@@ -1395,7 +1395,7 @@ return 0; }~%")))
       (format fout "return CINT1e_grids_drv(out, dims, &envs, cache, &c2s_sph_1e_grids);
 } // ~a_sph~%" intname)
 ;;; _spinor
-      (format fout "CACHE_SIZE_T ~a_spinor(double complex *out, FINT *dims, FINT *shls,
+      (format fout "CACHE_SIZE_T ~a_spinor(cint_complex *out, FINT *dims, FINT *shls,
 FINT *atm, FINT natm, FINT *bas, FINT nbas, double *env, CINTOpt *opt, double *cache) {~%" intname)
       (format fout envs-common)
       (when (member 'g raw-infix)

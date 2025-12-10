@@ -119,7 +119,7 @@ void CINTdplus_transpose(double *a_t, double *a, FINT m, FINT n)
 /*
  * a[m,n] -> a_t[n,m]
  */
-void CINTzmat_transpose(double complex *a_t, double complex *a, FINT m, FINT n)
+void CINTzmat_transpose(cint_complex *a_t, cint_complex *a, FINT m, FINT n)
 {
         FINT i, j;
 
@@ -147,7 +147,7 @@ void CINTzmat_transpose(double complex *a_t, double complex *a, FINT m, FINT n)
         }
 }
 
-void CINTzmat_dagger(double complex *a_t, double complex *a, FINT m, FINT n)
+void CINTzmat_dagger(cint_complex *a_t, cint_complex *a, FINT m, FINT n)
 {
         FINT i, j;
 

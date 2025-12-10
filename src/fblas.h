@@ -13,8 +13,8 @@ void CINTdset0(FINT n, double *x);
 void CINTdaxpy2v(const FINT n, double a, double *x, double *y, double *v);
 void CINTdmat_transpose(double *a_t, double *a, FINT m, FINT n);
 void CINTdplus_transpose(double *a_t, double *a, FINT m, FINT n);
-void CINTzmat_transpose(double complex *a_t, double complex *a, FINT m, FINT n);
-void CINTzmat_dagger(double complex *a_c, double complex *a, FINT m, FINT n);
+void CINTzmat_transpose(cint_complex *a_t, cint_complex *a, FINT m, FINT n);
+void CINTzmat_dagger(cint_complex *a_c, cint_complex *a, FINT m, FINT n);
 
 void CINTdgemm_NN(FINT m, FINT n, FINT k,
                   double *a, double *b, double *c);

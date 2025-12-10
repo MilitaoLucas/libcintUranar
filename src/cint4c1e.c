@@ -346,7 +346,7 @@ CACHE_SIZE_T int4c1e_cart(double *out, FINT *dims, FINT *shls, FINT *atm, FINT n
         return CINT4c1e_drv(out, dims, &envs, opt, cache, &c2s_cart_2e1);
 }
 
-CACHE_SIZE_T int4c1e_spinor(double complex *out, FINT *dims, FINT *shls, FINT *atm, FINT natm,
+CACHE_SIZE_T int4c1e_spinor(cint_complex *out, FINT *dims, FINT *shls, FINT *atm, FINT natm,
                    FINT *bas, FINT nbas, double *env, CINTOpt *opt, double *cache)
 {
         fprintf(stderr, "int4c1e_spinor not implemented\n");

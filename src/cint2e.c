@@ -868,7 +868,7 @@ CACHE_SIZE_T CINT2e_drv(double *out, FINT *dims, CINTEnvVars *envs, CINTOpt *opt
         }
         return !empty;
 }
-CACHE_SIZE_T CINT2e_spinor_drv(double complex *out, FINT *dims, CINTEnvVars *envs, CINTOpt *opt,
+CACHE_SIZE_T CINT2e_spinor_drv(cint_complex *out, FINT *dims, CINTEnvVars *envs, CINTOpt *opt,
                       double *cache, void (*f_e1_c2s)(), void (*f_e2_c2s)())
 {
         FINT *shls = envs->shls;
@@ -931,7 +931,7 @@ CACHE_SIZE_T CINT2e_spinor_drv(double complex *out, FINT *dims, CINTEnvVars *env
         }
         FINT nout = dims[0] * dims[1] * dims[2] * dims[3];
         if (!empty) {
-                double complex *opij;
+                cint_complex *opij;
                 MALLOC_INSTACK(opij, n1*envs->ncomp_e2);
                 for (n = 0; n < envs->ncomp_tensor; n++) {
                         for (m = 0; m < envs->ncomp_e2; m++) {
@@ -1212,7 +1212,7 @@ CACHE_SIZE_T int2e_cart(double *out, FINT *dims, FINT *shls, FINT *atm, FINT nat
 /*
  * spinor <ki|jl> = (ij|kl); i,j\in electron 1; k,l\in electron 2
  */
-CACHE_SIZE_T int2e_spinor(double complex *out, FINT *dims, FINT *shls, FINT *atm, FINT natm,
+CACHE_SIZE_T int2e_spinor(cint_complex *out, FINT *dims, FINT *shls, FINT *atm, FINT natm,
                  FINT *bas, FINT nbas, double *env, CINTOpt *opt, double *cache)
 {
         FINT ng[] = {0, 0, 0, 0, 0, 1, 1, 1};

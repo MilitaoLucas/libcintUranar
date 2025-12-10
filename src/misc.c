@@ -8,52 +8,76 @@
 #include <complex.h>
 #include "cint_config.h"
 
-void CINTdcmplx_re(const FINT n, double complex *z, const double *re)
+void CINTdcmplx_re(const FINT n, cint_complex *z, const double *re)
 {
         FINT i;
         for (i = 0; i < n; i++) {
+#ifdef _MSC_VER
+            z[i] = _Cbuild(re[i], 0.0);
+#else
                 z[i] = re[i] + 0 * _Complex_I;
+#endif
         }
 }
 
-void CINTdcmplx_im(const FINT n, double complex *z, const double *im)
+void CINTdcmplx_im(const FINT n, cint_complex *z, const double *im)
 {
         FINT i;
         for (i = 0; i < n; i++) {
+#ifdef _MSC_VER
+            z[i] = _Cbuild(0.0, im[i]);
+#else
                 z[i] = 0 + im[i] * _Complex_I;
+#endif
         }
 }
 
-void CINTdcmplx_pp(const FINT n, double complex *z,
+void CINTdcmplx_pp(const FINT n, cint_complex *z,
                    const double *re, const double *im)
 {
         FINT i;
         for (i = 0; i < n; i++) {
+#ifdef _MSC_VER
+            z[i] = _Cbuild(re[i], im[i]);
+#else
                 z[i] = re[i] + im[i] * _Complex_I;
+#endif
         }
 }
-void CINTdcmplx_pn(const FINT n, double complex *z,
+void CINTdcmplx_pn(const FINT n, cint_complex *z,
                    const double *re, const double *im)
 {
         FINT i;
         for (i = 0; i < n; i++) {
+#ifdef _MSC_VER
+            z[i] = _Cbuild(re[i], -im[i]);
+#else
                 z[i] = re[i] - im[i] * _Complex_I;
+#endif
         }
 }
-void CINTdcmplx_np(const FINT n, double complex *z,
+void CINTdcmplx_np(const FINT n, cint_complex *z,
                    const double *re, const double *im)
 {
         FINT i;
         for (i = 0; i < n; i++) {
+#ifdef _MSC_VER
+            z[i] = _Cbuild(-re[i], im[i]);
+#else
                 z[i] = -re[i] + im[i] * _Complex_I;
+#endif
         }
 }
-void CINTdcmplx_nn(const FINT n, double complex *z,
+void CINTdcmplx_nn(const FINT n, cint_complex *z,
                    const double *re, const double *im)
 {
         FINT i;
         for (i = 0; i < n; i++) {
+#ifdef _MSC_VER
+            z[i] = _Cbuild(-re[i], -im[i]);
+#else
                 z[i] = -re[i] - im[i] * _Complex_I;
+#endif
         }
 }
 

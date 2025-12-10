@@ -20,52 +20,52 @@ void c2s_cart_1e(double *opij, double *gctr, FINT *dims, CINTEnvVars *envs, doub
 void c2s_cart_2e1(double *fijkl, double *gctr, FINT *dims, CINTEnvVars *envs, double *cache);
 void c2s_cart_2e2();
 
-void c2s_sf_1e(double complex *opij, double *gctr, FINT *dims, CINTEnvVars *envs, double *cache);
-void c2s_sf_1ei(double complex *opij, double *gctr, FINT *dims, CINTEnvVars *envs, double *cache);
+void c2s_sf_1e(cint_complex *opij, double *gctr, FINT *dims, CINTEnvVars *envs, double *cache);
+void c2s_sf_1ei(cint_complex *opij, double *gctr, FINT *dims, CINTEnvVars *envs, double *cache);
 
-void c2s_si_1e(double complex *opij, double *gctr, FINT *dims, CINTEnvVars *envs, double *cache);
-void c2s_si_1ei(double complex *opij, double *gctr, FINT *dims, CINTEnvVars *envs, double *cache);
+void c2s_si_1e(cint_complex *opij, double *gctr, FINT *dims, CINTEnvVars *envs, double *cache);
+void c2s_si_1ei(cint_complex *opij, double *gctr, FINT *dims, CINTEnvVars *envs, double *cache);
 
 void c2s_sph_1e_grids(double *out, double *gctr, FINT *dims, CINTEnvVars *envs, double *cache);
 void c2s_cart_1e_grids(double *out, double *gctr, FINT *dims, CINTEnvVars *envs, double *cache);
 
-void c2s_sf_1e_grids(double complex *out, double *gctr, FINT *dims, CINTEnvVars *envs, double *cache);
-void c2s_sf_1e_gridsi(double complex *out, double *gctr, FINT *dims, CINTEnvVars *envs, double *cache);
-void c2s_si_1e_grids(double complex *out, double *gctr, FINT *dims, CINTEnvVars *envs, double *cache);
-void c2s_si_1e_gridsi(double complex *out, double *gctr, FINT *dims, CINTEnvVars *envs, double *cache);
+void c2s_sf_1e_grids(cint_complex *out, double *gctr, FINT *dims, CINTEnvVars *envs, double *cache);
+void c2s_sf_1e_gridsi(cint_complex *out, double *gctr, FINT *dims, CINTEnvVars *envs, double *cache);
+void c2s_si_1e_grids(cint_complex *out, double *gctr, FINT *dims, CINTEnvVars *envs, double *cache);
+void c2s_si_1e_gridsi(cint_complex *out, double *gctr, FINT *dims, CINTEnvVars *envs, double *cache);
 
 void c2s_sf_2e1(double *opij, double *gctr, FINT *dims, CINTEnvVars *envs, double *cache);
 void c2s_sf_2e1i(double *opij, double *gctr, FINT *dims, CINTEnvVars *envs, double *cache);
 
-void c2s_sf_2e2(double complex *fijkl, double *opij, FINT *dims, CINTEnvVars *envs, double *cache);
-void c2s_sf_2e2i(double complex *fijkl, double *opij, FINT *dims, CINTEnvVars *envs, double *cache);
+void c2s_sf_2e2(cint_complex *fijkl, double *opij, FINT *dims, CINTEnvVars *envs, double *cache);
+void c2s_sf_2e2i(cint_complex *fijkl, double *opij, FINT *dims, CINTEnvVars *envs, double *cache);
 
 void c2s_si_2e1(double *opij, double *gctr, FINT *dims, CINTEnvVars *envs, double *cache);
 void c2s_si_2e1i(double *opij, double *gctr, FINT *dims, CINTEnvVars *envs, double *cache);
 
-void c2s_si_2e2(double complex *fijkl, double *opij, FINT *dims, CINTEnvVars *envs, double *cache);
-void c2s_si_2e2i(double complex *fijkl, double *opij, FINT *dims, CINTEnvVars *envs, double *cache);
+void c2s_si_2e2(cint_complex *fijkl, double *opij, FINT *dims, CINTEnvVars *envs, double *cache);
+void c2s_si_2e2i(cint_complex *fijkl, double *opij, FINT *dims, CINTEnvVars *envs, double *cache);
 
 void c2s_sph_3c2e1(double *fijkl, double *gctr, FINT *dims, CINTEnvVars *envs, double *cache);
 void c2s_cart_3c2e1(double *fijkl, double *gctr, FINT *dims, CINTEnvVars *envs, double *cache);
 void c2s_sph_3c2e1_ssc(double *fijkl, double *gctr, FINT *dims, CINTEnvVars *envs, double *cache);
 
-void c2s_sf_3c2e1(double complex *opijk, double *gctr, FINT *dims, CINTEnvVars *envs, double *cache);
-void c2s_sf_3c2e1i(double complex *opijk, double *gctr, FINT *dims, CINTEnvVars *envs, double *cache);
-void c2s_si_3c2e1(double complex *opijk, double *gctr, FINT *dims, CINTEnvVars *envs, double *cache);
-void c2s_si_3c2e1i(double complex *opijk, double *gctr, FINT *dims, CINTEnvVars *envs, double *cache);
-void c2s_sf_3c2e1_ssc(double complex *opijk, double *gctr, FINT *dims, CINTEnvVars *envs, double *cache);
-void c2s_sf_3c2e1i_ssc(double complex *opijk, double *gctr, FINT *dims, CINTEnvVars *envs, double *cache);
-void c2s_si_3c2e1_ssc(double complex *opijk, double *gctr, FINT *dims, CINTEnvVars *envs, double *cache);
-void c2s_si_3c2e1i_ssc(double complex *opijk, double *gctr, FINT *dims, CINTEnvVars *envs, double *cache);
+void c2s_sf_3c2e1(cint_complex *opijk, double *gctr, FINT *dims, CINTEnvVars *envs, double *cache);
+void c2s_sf_3c2e1i(cint_complex *opijk, double *gctr, FINT *dims, CINTEnvVars *envs, double *cache);
+void c2s_si_3c2e1(cint_complex *opijk, double *gctr, FINT *dims, CINTEnvVars *envs, double *cache);
+void c2s_si_3c2e1i(cint_complex *opijk, double *gctr, FINT *dims, CINTEnvVars *envs, double *cache);
+void c2s_sf_3c2e1_ssc(cint_complex *opijk, double *gctr, FINT *dims, CINTEnvVars *envs, double *cache);
+void c2s_sf_3c2e1i_ssc(cint_complex *opijk, double *gctr, FINT *dims, CINTEnvVars *envs, double *cache);
+void c2s_si_3c2e1_ssc(cint_complex *opijk, double *gctr, FINT *dims, CINTEnvVars *envs, double *cache);
+void c2s_si_3c2e1i_ssc(cint_complex *opijk, double *gctr, FINT *dims, CINTEnvVars *envs, double *cache);
 
 void c2s_sph_3c1e(double *fijkl, double *gctr, FINT *dims, CINTEnvVars *envs, double *cache);
 void c2s_cart_3c1e(double *fijkl, double *gctr, FINT *dims, CINTEnvVars *envs, double *cache);
 
 void c2s_dset0(double *out, FINT *dims, FINT *counts);
-void c2s_zset0(double complex *out, FINT *dims, FINT *counts);
+void c2s_zset0(cint_complex *out, FINT *dims, FINT *counts);
 void c2s_grids_dset0(double *out, FINT *dims, FINT *counts);
-void c2s_grids_zset0(double complex *out, FINT *dims, FINT *counts);
+void c2s_grids_zset0(cint_complex *out, FINT *dims, FINT *counts);
 
 /*************************************************
  *

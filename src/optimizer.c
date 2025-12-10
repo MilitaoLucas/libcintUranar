@@ -437,7 +437,11 @@ void CINTOpt_non0coeff_byshell(FINT *sortedidx, FINT *non0ctr, double *ci,
                                FINT iprim, FINT ictr)
 {
         FINT ip, j, k, kp;
+#ifdef _MSC_VER
+        FINT zeroidx[10000];
+#else
         FINT zeroidx[ictr];
+ #endif
         for (ip = 0; ip < iprim; ip++) {
                 for (j = 0, k = 0, kp = 0; j < ictr; j++) {
                         if (ci[iprim*j+ip] != 0) {
@@ -455,6 +459,7 @@ void CINTOpt_non0coeff_byshell(FINT *sortedidx, FINT *non0ctr, double *ci,
                 non0ctr[ip] = k;
                 sortedidx += ictr;
         }
+        // free(zeroidx);
 }
 
 void CINTOpt_set_non0coeff(CINTOpt *opt, FINT *atm, FINT natm,

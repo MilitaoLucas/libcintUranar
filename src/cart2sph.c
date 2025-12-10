@@ -4496,7 +4496,7 @@ static void dcopy_ij(double *out, double *gctr,
         } }
 }
 
-static void zcopy_ij(double complex *out, double *gctrR, double *gctrI,
+static void zcopy_ij(cint_complex *out, double *gctrR, double *gctrI,
                      const FINT ni, const FINT nj, const FINT mi, const FINT mj)
 {
         double *dout = (double *)out;
@@ -4528,7 +4528,7 @@ static void dcopy_grids_ij(double *out, const double *gctr,
         }
 }
 
-static void zcopy_grids_ij(double complex *out, double *gctrR, double *gctrI,
+static void zcopy_grids_ij(cint_complex *out, double *gctrR, double *gctrI,
                            const FINT ngrids, const FINT ni, const FINT nj,
                            const FINT mgrids, const FINT mi, const FINT mj)
 {
@@ -4673,7 +4673,7 @@ static void dcopy_iklj(double *fijkl, const double *gctr,
         }
 }
 
-static void zcopy_iklj(double complex *fijkl, double *gctrR, double *gctrI,
+static void zcopy_iklj(cint_complex *fijkl, double *gctrR, double *gctrI,
                        const FINT ni, const FINT nj, const FINT nk, const FINT nl,
                        const FINT mi, const FINT mj, const FINT mk, const FINT ml)
 {
@@ -4734,7 +4734,7 @@ void c2s_dset0(double *out, FINT *dims, FINT *counts)
                 out += nijk;
         }
 }
-void c2s_zset0(double complex *out, FINT *dims, FINT *counts)
+void c2s_zset0(cint_complex *out, FINT *dims, FINT *counts)
 {
         FINT ni = dims[0];
         FINT nj = dims[1];
@@ -4744,7 +4744,11 @@ void c2s_zset0(double complex *out, FINT *dims, FINT *counts)
         FINT i, j, k, l;
         if (dims == counts) {
                 for (i = 0; i < nijk * counts[3]; i++) {
-                        out[i] = 0;
+#ifdef _MSC_VER
+                    out[i] = _Cbuild(0.0, 0.0);
+#else
+                    out[i] = 0;
+#endif
                 }
                 return;
         }
@@ -4752,13 +4756,17 @@ void c2s_zset0(double complex *out, FINT *dims, FINT *counts)
         FINT dj = counts[1];
         FINT dk = counts[2];
         FINT dl = counts[3];
-        double complex *pout;
+        cint_complex *pout;
         for (l = 0; l < dl; l++) {
                 for (k = 0; k < dk; k++) {
                         pout = out + k * nij;
                         for (j = 0; j < dj; j++) {
                         for (i = 0; i < di; i++) {
-                                pout[j*ni+i] = 0;
+#ifdef _MSC_VER
+                            pout[j * ni + i] = _Cbuild(0.0, 0.0);
+#else
+                            pout[j * ni + i] = 0;
+#endif
                         } }
                 }
                 out += nijk;
@@ -4772,7 +4780,7 @@ void c2s_grids_dset0(double *out, FINT *dims, FINT *counts)
         c2s_dset0(out, dims1, counts1);
 }
 
-void c2s_grids_zset0(double complex *out, FINT *dims, FINT *counts)
+void c2s_grids_zset0(cint_complex *out, FINT *dims, FINT *counts)
 {
         FINT counts1[4] = {counts[2], counts[0], counts[1], counts[3]};
         FINT dims1[4] = {dims[2], dims[0], dims[1],dims [3]};
@@ -4866,7 +4874,7 @@ void c2s_sph_1e(double *opij, double *gctr, FINT *dims,
 /*
  * 1e integrals, cartesian to spin-free spinor.
  */
-void c2s_sf_1e(double complex *opij, double *gctr, FINT *dims,
+void c2s_sf_1e(cint_complex *opij, double *gctr, FINT *dims,
                CINTEnvVars *envs, double *cache)
 {
         FINT *shls = envs->shls;
@@ -4903,7 +4911,7 @@ void c2s_sf_1e(double complex *opij, double *gctr, FINT *dims,
         } }
 }
 
-void c2s_sf_1ei(double complex *opij, double *gctr, FINT *dims,
+void c2s_sf_1ei(cint_complex *opij, double *gctr, FINT *dims,
                 CINTEnvVars *envs, double *cache)
 {
         FINT *shls = envs->shls;
@@ -4944,7 +4952,7 @@ void c2s_sf_1ei(double complex *opij, double *gctr, FINT *dims,
 /*
  * 1e integrals, cartesian to spinor.
  */
-void c2s_si_1e(double complex *opij, double *gctr, FINT *dims,
+void c2s_si_1e(cint_complex *opij, double *gctr, FINT *dims,
                CINTEnvVars *envs, double *cache)
 {
         FINT *shls = envs->shls;
@@ -4990,7 +4998,7 @@ void c2s_si_1e(double complex *opij, double *gctr, FINT *dims,
                 gc_1 += nf;
         } }
 }
-void c2s_si_1ei(double complex *opij, double *gctr, FINT *dims,
+void c2s_si_1ei(cint_complex *opij, double *gctr, FINT *dims,
                 CINTEnvVars *envs, double *cache)
 {
         FINT *shls = envs->shls;
@@ -5108,7 +5116,7 @@ void c2s_cart_1e_grids(double *out, double *gctr, FINT *dims,
 /*
  * 1e-grids integrals, cartesian to spin-free spinor.
  */
-void c2s_sf_1e_grids(double complex *out, double *gctr, FINT *dims,
+void c2s_sf_1e_grids(cint_complex *out, double *gctr, FINT *dims,
                      CINTEnvVars *envs, double *cache)
 {
         FINT ngrids = envs->ngrids;
@@ -5140,7 +5148,7 @@ void c2s_sf_1e_grids(double complex *out, double *gctr, FINT *dims,
         MALLOC_ALIGN8_INSTACK(tmp1I, buflen);
         MALLOC_ALIGN8_INSTACK(tmp2R, buflen);
         MALLOC_ALIGN8_INSTACK(tmp2I, buflen);
-        double complex *pij;
+        cint_complex *pij;
 
         for (grids_offset = 0; grids_offset < ngrids; grids_offset += GRID_BLKSIZE) {
                 bgrids = MIN(ngrids - grids_offset, GRID_BLKSIZE);
@@ -5155,7 +5163,7 @@ void c2s_sf_1e_grids(double complex *out, double *gctr, FINT *dims,
                 } }
         }
 }
-void c2s_sf_1e_gridsi(double complex *out, double *gctr, FINT *dims,
+void c2s_sf_1e_gridsi(cint_complex *out, double *gctr, FINT *dims,
                       CINTEnvVars *envs, double *cache)
 {
         FINT ngrids = envs->ngrids;
@@ -5187,7 +5195,7 @@ void c2s_sf_1e_gridsi(double complex *out, double *gctr, FINT *dims,
         MALLOC_ALIGN8_INSTACK(tmp1I, buflen);
         MALLOC_ALIGN8_INSTACK(tmp2R, buflen);
         MALLOC_ALIGN8_INSTACK(tmp2I, buflen);
-        double complex *pij;
+        cint_complex *pij;
 
         for (grids_offset = 0; grids_offset < ngrids; grids_offset += GRID_BLKSIZE) {
                 bgrids = MIN(ngrids - grids_offset, GRID_BLKSIZE);
@@ -5202,7 +5210,7 @@ void c2s_sf_1e_gridsi(double complex *out, double *gctr, FINT *dims,
                 } }
         }
 }
-void c2s_si_1e_grids(double complex *out, double *gctr, FINT *dims,
+void c2s_si_1e_grids(cint_complex *out, double *gctr, FINT *dims,
                      CINTEnvVars *envs, double *cache)
 {
         FINT ngrids = envs->ngrids;
@@ -5239,7 +5247,7 @@ void c2s_si_1e_grids(double complex *out, double *gctr, FINT *dims,
         MALLOC_ALIGN8_INSTACK(tmp1I, buflen);
         MALLOC_ALIGN8_INSTACK(tmp2R, buflen);
         MALLOC_ALIGN8_INSTACK(tmp2I, buflen);
-        double complex *pij;
+        cint_complex *pij;
 
         for (grids_offset = 0; grids_offset < ngrids; grids_offset += GRID_BLKSIZE) {
                 bgrids = MIN(ngrids - grids_offset, GRID_BLKSIZE);
@@ -5258,7 +5266,7 @@ void c2s_si_1e_grids(double complex *out, double *gctr, FINT *dims,
                 } }
         }
 }
-void c2s_si_1e_gridsi(double complex *out, double *gctr, FINT *dims,
+void c2s_si_1e_gridsi(cint_complex *out, double *gctr, FINT *dims,
                       CINTEnvVars *envs, double *cache)
 {
         FINT ngrids = envs->ngrids;
@@ -5295,7 +5303,7 @@ void c2s_si_1e_gridsi(double complex *out, double *gctr, FINT *dims,
         MALLOC_ALIGN8_INSTACK(tmp1I, buflen);
         MALLOC_ALIGN8_INSTACK(tmp2R, buflen);
         MALLOC_ALIGN8_INSTACK(tmp2I, buflen);
-        double complex *pij;
+        cint_complex *pij;
 
         for (grids_offset = 0; grids_offset < ngrids; grids_offset += GRID_BLKSIZE) {
                 bgrids = MIN(ngrids - grids_offset, GRID_BLKSIZE);
@@ -5466,7 +5474,7 @@ void c2s_sf_2e1i(double *opij, double *gctr, FINT *dims,
  *
  * opij: partial transformed GTO integrals, ordered as <ik|lj>
  */
-void c2s_sf_2e2(double complex *fijkl, double *opij, FINT *dims,
+void c2s_sf_2e2(cint_complex *fijkl, double *opij, FINT *dims,
                 CINTEnvVars *envs, double *cache)
 {
         FINT *shls = envs->shls;
@@ -5511,7 +5519,7 @@ void c2s_sf_2e2(double complex *fijkl, double *opij, FINT *dims,
         MALLOC_INSTACK(tmp1I, len1);
         MALLOC_INSTACK(tmp2R, len2);
         MALLOC_INSTACK(tmp2I, len2);
-        double complex *pfijkl;
+        cint_complex *pfijkl;
 
         for (lc = 0; lc < l_ctr; lc++) {
         for (kc = 0; kc < k_ctr; kc++) {
@@ -5524,7 +5532,7 @@ void c2s_sf_2e2(double complex *fijkl, double *opij, FINT *dims,
                 opij += nop * OF_CMPLX;
         } } } }
 }
-void c2s_sf_2e2i(double complex *fijkl, double *opij, FINT *dims,
+void c2s_sf_2e2i(cint_complex *fijkl, double *opij, FINT *dims,
                  CINTEnvVars *envs, double *cache)
 {
         FINT *shls = envs->shls;
@@ -5569,7 +5577,7 @@ void c2s_sf_2e2i(double complex *fijkl, double *opij, FINT *dims,
         MALLOC_INSTACK(tmp1I, len1);
         MALLOC_INSTACK(tmp2R, len2);
         MALLOC_INSTACK(tmp2I, len2);
-        double complex *pfijkl;
+        cint_complex *pfijkl;
 
         for (lc = 0; lc < l_ctr; lc++) {
         for (kc = 0; kc < k_ctr; kc++) {
@@ -5684,7 +5692,7 @@ void c2s_si_2e1i(double *opij, double *gctr, FINT *dims,
         }
 }
 
-void c2s_si_2e2(double complex *fijkl, double *opij, FINT *dims,
+void c2s_si_2e2(cint_complex *fijkl, double *opij, FINT *dims,
                 CINTEnvVars *envs, double *cache)
 {
         FINT *shls = envs->shls;
@@ -5722,7 +5730,7 @@ void c2s_si_2e2(double complex *fijkl, double *opij, FINT *dims,
         FINT ofk = ni * nj * dk;
         FINT ofl = ni * nj * nk * dl;
         FINT ic, jc, kc, lc;
-        double complex *pfijkl;
+        cint_complex *pfijkl;
         double *ox = opij;
         double *oy = ox + nop * OF_CMPLX * i_ctr * j_ctr * k_ctr * l_ctr;
         double *oz = oy + nop * OF_CMPLX * i_ctr * j_ctr * k_ctr * l_ctr;
@@ -5749,7 +5757,7 @@ void c2s_si_2e2(double complex *fijkl, double *opij, FINT *dims,
         } } } }
 }
 
-void c2s_si_2e2i(double complex *fijkl, double *opij, FINT *dims,
+void c2s_si_2e2i(cint_complex *fijkl, double *opij, FINT *dims,
                  CINTEnvVars *envs, double *cache)
 {
         FINT *shls = envs->shls;
@@ -5787,7 +5795,7 @@ void c2s_si_2e2i(double complex *fijkl, double *opij, FINT *dims,
         FINT ofk = ni * nj * dk;
         FINT ofl = ni * nj * nk * dl;
         FINT ic, jc, kc, lc;
-        double complex *pfijkl;
+        cint_complex *pfijkl;
         double *ox = opij;
         double *oy = ox + nop * OF_CMPLX * i_ctr * j_ctr * k_ctr * l_ctr;
         double *oz = oy + nop * OF_CMPLX * i_ctr * j_ctr * k_ctr * l_ctr;
@@ -5994,7 +6002,7 @@ void c2s_sph_3c2e1_ssc(double *bufijk, double *gctr, FINT *dims,
 /*
  * 3c2e spinor integrals, cartesian to spin-free spinor for electron 1.
  */
-void c2s_sf_3c2e1(double complex *opijk, double *gctr, FINT *dims,
+void c2s_sf_3c2e1(cint_complex *opijk, double *gctr, FINT *dims,
                   CINTEnvVars *envs, double *cache)
 {
         FINT *shls = envs->shls;
@@ -6034,7 +6042,7 @@ void c2s_sf_3c2e1(double complex *opijk, double *gctr, FINT *dims,
         MALLOC_INSTACK(tmp1I, len1);
         MALLOC_INSTACK(tmp2R, len2);
         MALLOC_INSTACK(tmp2I, len2);
-        double complex *pijk;
+        cint_complex *pijk;
 
         for (kc = 0; kc < k_ctr; kc++) {
         for (jc = 0; jc < j_ctr; jc++) {
@@ -6047,7 +6055,7 @@ void c2s_sf_3c2e1(double complex *opijk, double *gctr, FINT *dims,
                 gctr += nf;
         } } }
 }
-void c2s_sf_3c2e1i(double complex *opijk, double *gctr, FINT *dims,
+void c2s_sf_3c2e1i(cint_complex *opijk, double *gctr, FINT *dims,
                    CINTEnvVars *envs, double *cache)
 {
         FINT *shls = envs->shls;
@@ -6089,7 +6097,7 @@ void c2s_sf_3c2e1i(double complex *opijk, double *gctr, FINT *dims,
         MALLOC_INSTACK(tmp1I, len1);
         MALLOC_INSTACK(tmp2R, len2);
         MALLOC_INSTACK(tmp2I, len2);
-        double complex *pijk;
+        cint_complex *pijk;
 
         for (kc = 0; kc < k_ctr; kc++) {
         for (jc = 0; jc < j_ctr; jc++) {
@@ -6105,7 +6113,7 @@ void c2s_sf_3c2e1i(double complex *opijk, double *gctr, FINT *dims,
 /*
  * 3c2e integrals, cartesian to spinor for electron 1.
  */
-void c2s_si_3c2e1(double complex *opijk, double *gctr, FINT *dims,
+void c2s_si_3c2e1(cint_complex *opijk, double *gctr, FINT *dims,
                   CINTEnvVars *envs, double *cache)
 {
         FINT *shls = envs->shls;
@@ -6157,7 +6165,7 @@ void c2s_si_3c2e1(double complex *opijk, double *gctr, FINT *dims,
         MALLOC_INSTACK(tmp1I, len1);
         MALLOC_INSTACK(tmp2R, len2);
         MALLOC_INSTACK(tmp2I, len2);
-        double complex *pijk;
+        cint_complex *pijk;
 
         for (kc = 0; kc < k_ctr; kc++) {
         for (jc = 0; jc < j_ctr; jc++) {
@@ -6177,7 +6185,7 @@ void c2s_si_3c2e1(double complex *opijk, double *gctr, FINT *dims,
         } } }
 }
 
-void c2s_si_3c2e1i(double complex *opijk, double *gctr, FINT *dims,
+void c2s_si_3c2e1i(cint_complex *opijk, double *gctr, FINT *dims,
                    CINTEnvVars *envs, double *cache)
 {
         FINT *shls = envs->shls;
@@ -6227,7 +6235,7 @@ void c2s_si_3c2e1i(double complex *opijk, double *gctr, FINT *dims,
         MALLOC_INSTACK(tmp1I, len1);
         MALLOC_INSTACK(tmp2R, len2);
         MALLOC_INSTACK(tmp2I, len2);
-        double complex *pijk;
+        cint_complex *pijk;
 
         for (kc = 0; kc < k_ctr; kc++) {
         for (jc = 0; jc < j_ctr; jc++) {
@@ -6247,7 +6255,7 @@ void c2s_si_3c2e1i(double complex *opijk, double *gctr, FINT *dims,
         } } }
 }
 
-void c2s_sf_3c2e1_ssc(double complex *opijk, double *gctr, FINT *dims,
+void c2s_sf_3c2e1_ssc(cint_complex *opijk, double *gctr, FINT *dims,
                       CINTEnvVars *envs, double *cache)
 {
         FINT *shls = envs->shls;
@@ -6280,7 +6288,7 @@ void c2s_sf_3c2e1_ssc(double complex *opijk, double *gctr, FINT *dims,
         MALLOC_INSTACK(tmp1I, len1);
         MALLOC_INSTACK(tmp2R, len2);
         MALLOC_INSTACK(tmp2I, len2);
-        double complex *pijk;
+        cint_complex *pijk;
 
         for (kc = 0; kc < k_ctr; kc++) {
         for (jc = 0; jc < j_ctr; jc++) {
@@ -6293,7 +6301,7 @@ void c2s_sf_3c2e1_ssc(double complex *opijk, double *gctr, FINT *dims,
         } } }
 }
 
-void c2s_sf_3c2e1i_ssc(double complex *opijk, double *gctr, FINT *dims,
+void c2s_sf_3c2e1i_ssc(cint_complex *opijk, double *gctr, FINT *dims,
                        CINTEnvVars *envs, double *cache)
 {
         FINT *shls = envs->shls;
@@ -6326,7 +6334,7 @@ void c2s_sf_3c2e1i_ssc(double complex *opijk, double *gctr, FINT *dims,
         MALLOC_INSTACK(tmp1I, len1);
         MALLOC_INSTACK(tmp2R, len2);
         MALLOC_INSTACK(tmp2I, len2);
-        double complex *pijk;
+        cint_complex *pijk;
 
         for (kc = 0; kc < k_ctr; kc++) {
         for (jc = 0; jc < j_ctr; jc++) {
@@ -6338,7 +6346,7 @@ void c2s_sf_3c2e1i_ssc(double complex *opijk, double *gctr, FINT *dims,
                 gctr += nf;
         } } }
 }
-void c2s_si_3c2e1_ssc(double complex *opijk, double *gctr, FINT *dims,
+void c2s_si_3c2e1_ssc(cint_complex *opijk, double *gctr, FINT *dims,
                       CINTEnvVars *envs, double *cache)
 {
         FINT *shls = envs->shls;
@@ -6378,7 +6386,7 @@ void c2s_si_3c2e1_ssc(double complex *opijk, double *gctr, FINT *dims,
         MALLOC_INSTACK(tmp1I, len1);
         MALLOC_INSTACK(tmp2R, len2);
         MALLOC_INSTACK(tmp2I, len2);
-        double complex *pijk;
+        cint_complex *pijk;
 
         for (kc = 0; kc < k_ctr; kc++) {
         for (jc = 0; jc < j_ctr; jc++) {
@@ -6393,7 +6401,7 @@ void c2s_si_3c2e1_ssc(double complex *opijk, double *gctr, FINT *dims,
                 gc_1 += nf;
         } } }
 }
-void c2s_si_3c2e1i_ssc(double complex *opijk, double *gctr, FINT *dims,
+void c2s_si_3c2e1i_ssc(cint_complex *opijk, double *gctr, FINT *dims,
                        CINTEnvVars *envs, double *cache)
 {
         FINT *shls = envs->shls;
@@ -6433,7 +6441,7 @@ void c2s_si_3c2e1i_ssc(double complex *opijk, double *gctr, FINT *dims,
         MALLOC_INSTACK(tmp1I, len1);
         MALLOC_INSTACK(tmp2R, len2);
         MALLOC_INSTACK(tmp2I, len2);
-        double complex *pijk;
+        cint_complex *pijk;
 
         for (kc = 0; kc < k_ctr; kc++) {
         for (jc = 0; jc < j_ctr; jc++) {
@@ -6486,7 +6494,7 @@ double *CINTc2s_ket_sph1(double *sph, double *cart, FINT lds, FINT ldc, FINT l)
         return (c2s_ket_sph1[l])(sph, cart, lds, ldc, l);
 }
 
-void CINTc2s_bra_spinor_e1sf(double complex *gsp, FINT nket,
+void CINTc2s_bra_spinor_e1sf(cint_complex *gsp, FINT nket,
                              double *gcart, FINT kappa, FINT l)
 {
         FINT nf = _len_cart[l];
@@ -6530,8 +6538,8 @@ void CINTc2s_bra_spinor_e1sf(double complex *gsp, FINT nket,
         } }
 }
 
-void CINTc2s_bra_spinor_sf(double complex *gsp, FINT nket,
-                           double complex *gcart, FINT kappa, FINT l)
+void CINTc2s_bra_spinor_sf(cint_complex *gsp, FINT nket,
+                           cint_complex *gcart, FINT kappa, FINT l)
 {
         FINT nf = _len_cart[l];
         FINT nd = _len_spinor(kappa, l);
@@ -6575,8 +6583,8 @@ void CINTc2s_bra_spinor_sf(double complex *gsp, FINT nket,
         } }
 }
 
-void CINTc2s_ket_spinor(double complex *gsp, FINT nbra,
-                        double complex *gcart, FINT kappa, FINT l)
+void CINTc2s_ket_spinor(cint_complex *gsp, FINT nbra,
+                        cint_complex *gcart, FINT kappa, FINT l)
 {
         FINT nf = _len_cart[l];
         FINT nf2 = nf * 2;
@@ -6614,8 +6622,8 @@ void CINTc2s_ket_spinor(double complex *gsp, FINT nbra,
         }
 }
 
-void CINTc2s_iket_spinor(double complex *gsp, FINT nbra,
-                         double complex *gcart, FINT kappa, FINT l)
+void CINTc2s_iket_spinor(cint_complex *gsp, FINT nbra,
+                         cint_complex *gcart, FINT kappa, FINT l)
 {
         FINT nf = _len_cart[l];
         FINT nf2 = nf * 2;
@@ -6653,8 +6661,8 @@ void CINTc2s_iket_spinor(double complex *gsp, FINT nbra,
         }
 }
 
-void CINTc2s_bra_spinor(double complex *gsp, FINT nket,
-                        double complex *gcart, FINT kappa, FINT l)
+void CINTc2s_bra_spinor(cint_complex *gsp, FINT nket,
+                        cint_complex *gcart, FINT kappa, FINT l)
 {
         FINT nf = _len_cart[l];
         FINT nf2 = nf * 2;
@@ -6690,15 +6698,15 @@ void CINTc2s_bra_spinor(double complex *gsp, FINT nket,
         } }
 }
 
-void CINTc2s_bra_spinor_si(double complex *gsp, FINT nket,
-                           double complex *gcart, FINT kappa, FINT l)
+void CINTc2s_bra_spinor_si(cint_complex *gsp, FINT nket,
+                           cint_complex *gcart, FINT kappa, FINT l)
 {
         FINT nf = _len_cart[l];
         FINT nf2 = nf * 2;
         FINT nd = _len_spinor(kappa, l);
         double *gspz = (double *)gsp;
-        double complex *gcarta = gcart;
-        double complex *gcartb = gcarta + nf * nket;
+        cint_complex *gcarta = gcart;
+        cint_complex *gcartb = gcarta + nf * nket;
         double *coeffR, *coeffI;
         if (kappa < 0) { // j = l + 1/2
                 coeffR = g_c2s[l].cart2j_gt_lR;
@@ -6738,7 +6746,7 @@ void CINTc2s_bra_spinor_si(double complex *gsp, FINT nket,
  * vectors gspa and gspb are the upper and lower components of the
  * two-component vector
  */
-void CINTc2s_ket_spinor_sf1(double complex *gspa, double complex *gspb, double *gcart,
+void CINTc2s_ket_spinor_sf1(cint_complex *gspa, cint_complex *gspb, double *gcart,
                             FINT lds, FINT ldc, FINT nctr, FINT kappa, FINT l)
 {
         FINT nf = _len_cart[l];
@@ -6787,7 +6795,7 @@ void CINTc2s_ket_spinor_sf1(double complex *gspa, double complex *gspb, double *
         }
 }
 
-void CINTc2s_iket_spinor_sf1(double complex *gspa, double complex *gspb, double *gcart,
+void CINTc2s_iket_spinor_sf1(cint_complex *gspa, cint_complex *gspb, double *gcart,
                              FINT lds, FINT ldc, FINT nctr, FINT kappa, FINT l)
 {
         FINT nf = _len_cart[l];
@@ -6836,7 +6844,7 @@ void CINTc2s_iket_spinor_sf1(double complex *gspa, double complex *gspb, double 
         }
 }
 
-void CINTc2s_ket_spinor_si1(double complex *gspa, double complex *gspb, double *gcart,
+void CINTc2s_ket_spinor_si1(cint_complex *gspa, cint_complex *gspb, double *gcart,
                             FINT lds, FINT ldc, FINT nctr, FINT kappa, FINT l)
 {
         FINT nf = _len_cart[l];
@@ -6896,7 +6904,7 @@ void CINTc2s_ket_spinor_si1(double complex *gspa, double complex *gspb, double *
         }
 }
 
-void CINTc2s_iket_spinor_si1(double complex *gspa, double complex *gspb, double *gcart,
+void CINTc2s_iket_spinor_si1(cint_complex *gspa, cint_complex *gspb, double *gcart,
                              FINT lds, FINT ldc, FINT nctr, FINT kappa, FINT l)
 {
         FINT nf = _len_cart[l];

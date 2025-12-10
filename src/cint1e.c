@@ -236,7 +236,7 @@ CACHE_SIZE_T CINT1e_drv(double *out, FINT *dims, CINTEnvVars *envs,
         return has_value;
 }
 
-CACHE_SIZE_T CINT1e_spinor_drv(double complex *out, FINT *dims, CINTEnvVars *envs,
+CACHE_SIZE_T CINT1e_spinor_drv(cint_complex *out, FINT *dims, CINTEnvVars *envs,
                        double *cache, void (*f_c2s)(), FINT int1e_type)
 {
         if (out == NULL) {
@@ -377,7 +377,7 @@ CACHE_SIZE_T int1e_ovlp_cart(double *out, FINT *dims, FINT *shls, FINT *atm, FIN
         return CINT1e_drv(out, dims, &envs, cache, &c2s_cart_1e, 0);
 }
 
-CACHE_SIZE_T int1e_ovlp_spinor(double complex *out, FINT *dims, FINT *shls, FINT *atm, FINT natm,
+CACHE_SIZE_T int1e_ovlp_spinor(cint_complex *out, FINT *dims, FINT *shls, FINT *atm, FINT natm,
                      FINT *bas, FINT nbas, double *env, CINTOpt *opt, double *cache)
 {
         FINT ng[] = {0, 0, 0, 0, 0, 1, 1, 1};
@@ -413,7 +413,7 @@ CACHE_SIZE_T int1e_nuc_cart(double *out, FINT *dims, FINT *shls, FINT *atm, FINT
         return CINT1e_drv(out, dims, &envs, cache, &c2s_cart_1e, 2);
 }
 
-CACHE_SIZE_T int1e_nuc_spinor(double complex *out, FINT *dims, FINT *shls, FINT *atm, FINT natm,
+CACHE_SIZE_T int1e_nuc_spinor(cint_complex *out, FINT *dims, FINT *shls, FINT *atm, FINT natm,
                      FINT *bas, FINT nbas, double *env, CINTOpt *opt, double *cache)
 {
         FINT ng[] = {0, 0, 0, 0, 0, 1, 0, 1};
