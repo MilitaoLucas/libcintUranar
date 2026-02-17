@@ -10,10 +10,15 @@
 #ifdef _MSC_VER
 #include <complex.h>
 typedef _Dcomplex cint_complex;
+#elif defined(__cplusplus)
+#include <complex>
+typedef std::complex<double> cint_complex;
 #else
 #include <complex.h>
-typedef double complex cint_complex;
+typedef double _Complex cint_complex;
 #endif
+
+
 
 #cmakedefine I8
 #ifdef I8
