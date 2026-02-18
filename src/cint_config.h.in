@@ -1,5 +1,10 @@
 #include "cint.h"
 
+#if defined(_MSC_VER) && defined(__clang__)
+#define _Cbuild(r, i) __builtin_complex((double)(r), (double)(i))
+#define creal(z) (__real__ (z))
+#define cimag(z) (__imag__ (z))
+#endif
 #cmakedefine HAVE_EXPL
 #cmakedefine HAVE_SQRTL
 #cmakedefine HAVE_FABSL

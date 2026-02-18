@@ -115,7 +115,7 @@ static CACHE_SIZE_T _int2e_breit_drv(cint_complex *out, FINT *dims, FINT *shls,
         /* [1/2 gaunt] - [1/2 xxx*\sigma1\dot r1] */
         if (has_value) {
                 for (i = 0; i < nop; i++) {
-#ifdef _MSC_VER
+#if defined(_MSC_VER) && !defined(__clang__)
 
                     cint_complex sum;
                     sum._Val[0] = buf1[i]._Val[0] + buf[i]._Val[0];
@@ -132,7 +132,7 @@ static CACHE_SIZE_T _int2e_breit_drv(cint_complex *out, FINT *dims, FINT *shls,
                      has_value);
         if (has_value) {
                 for (i = 0; i < nop; i++) {
-#ifdef _MSC_VER
+#if defined(_MSC_VER) && !defined(__clang__)
                     cint_complex sum;
                     sum._Val[0] = buf1[i]._Val[0] - buf[i]._Val[0];
                     sum._Val[1] = buf1[i]._Val[1] - buf[i]._Val[1];

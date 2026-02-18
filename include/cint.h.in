@@ -3,11 +3,11 @@
  *
  * Parameters and function signature for libcint.
  */
-
+#pragma once
 #define CINT_VERSION            "@cint_VERSION@"
 #define CINT_SOVERSION          @cint_SOVERSION@
 
-#ifdef _MSC_VER
+#if defined(_MSC_VER) && !defined(__clang__)
 #include <complex.h>
 typedef _Dcomplex cint_complex;
 #elif defined(__cplusplus)
@@ -17,7 +17,9 @@ typedef std::complex<double> cint_complex;
 #include <complex.h>
 typedef double _Complex cint_complex;
 #endif
-
+#if defined(_MSC_VER) && defined(__clang__)
+#define _Cbuild(r, i) __builtin_complex((double)(r), (double)(i))
+#endif
 
 
 #cmakedefine I8

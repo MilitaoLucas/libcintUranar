@@ -5,8 +5,8 @@
  */
 
 #include <stdint.h>
-#include "cint_config.h"
 #include "fblas.h"
+#include "cint_config.h"
 
 
 #define MIN(X,Y) ((X)<(Y)?(X):(Y))

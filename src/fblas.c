@@ -149,10 +149,14 @@ void CINTzmat_transpose(cint_complex *a_t, cint_complex *a, FINT m, FINT n)
 
 void CINTzmat_dagger(cint_complex *a_t, cint_complex *a, FINT m, FINT n)
 {
+#if defined(_MSC_VER) && defined(__clang__)
+#define conj(z) ((cint_complex)(__real__(z) - __imag__(z) * _Cbuild(0.0, 1.0)))
+#endif
         FINT i, j;
 
         for (i = 0; i < n; i++) {
                 for (j = 0; j < m; j++) {
+
                         a_t[i*m+j] = conj(a[j*n+i]);
                 }
         }
